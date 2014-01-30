@@ -1,5 +1,5 @@
-Python bindings for the Stripe API
-==================================
+Python bindings for the Ripcord API
+===================================
 
 License
 =======

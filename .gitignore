@@ -11,4 +11,4 @@ ChangeLog
 cover/*
 dist/*
 doc/build/*
-stripeclient/versioninfo
+ripcordclient/versioninfo
