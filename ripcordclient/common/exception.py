@@ -20,6 +20,8 @@
 RipcordClient base exception handling.
 """
 
+import sys
+
 from oslo.config import cfg
 
 from ripcordclient.openstack.common import log as logging
@@ -36,8 +38,8 @@ CONF = cfg.CONF
 CONF.register_opts(exc_log_opts)
 
 
-class RipcordClientException(Exception):
-    """Base RipcordClient Exception
+class BaseException(Exception):
+    """Base Exception
 
     To correctly use this class, inherit from it and define
     a 'message' property. That message will get printf'd
@@ -75,7 +77,7 @@ class RipcordClientException(Exception):
                     # at least get the core message out if something happened
                     message = self.message
 
-        super(RipcordClientException, self).__init__(message)
+        super(BaseException, self).__init__(message)
 
     def format_message(self):
         if self.__class__.__name__.endswith('_Remote'):
@@ -84,19 +86,44 @@ class RipcordClientException(Exception):
             return unicode(self)
 
 
-class NotFound(RipcordClientException):
+class NotFound(BaseException):
     message = 'Resource could not be found'
     code = 404
 
 
-class SubscriberNotFound(NotFound):
-    message = 'Subscriber %(uuid)s could not be found'
+class CommandError(BaseException):
+    """Invalid usage of CLI."""
 
 
-class Invalid(RipcordClientException):
+class Invalid(BaseException):
     message = 'Unacceptable parameters.'
     code = 400
 
 
 class InvalidAttribute(Invalid):
     message = 'Attribute not supported: %(attr)s'
+
+
+class HTTPException(Exception):
+    """Base exception for all HTTP-derived exceptions."""
+    code = 'N/A'
+
+    def __init__(self, details=None):
+        self.details = details or self.__class__.__name__
+
+    def __str__(self):
+        return "%s (HTTP %s)" % (self.details, self.code)
+
+
+_code_map = {}
+for obj_name in dir(sys.modules[__name__]):
+    if obj_name.startswith('HTTP'):
+        obj = getattr(sys.modules[__name__], obj_name)
+        _code_map[obj.code] = obj
+
+
+def from_response(response, error=None):
+    """Return an instance of an HTTPException based on httplib response."""
+    cls = _code_map.get(response.status, HTTPException)
+
+    return cls(error)
