@@ -1,0 +1,8 @@
+hacking>=0.5.6,<0.8
+
+coverage
+fixtures>=0.3.12
+requests
+sphinx
+testrepository>=0.0.13
+testtools>=0.9.32,<0.9.35
