@@ -39,7 +39,6 @@ import sys
 import traceback
 
 from oslo.config import cfg
-import six
 from six import moves
 
 from ripcordclient.openstack.common.gettextutils import _  # noqa
@@ -208,8 +207,6 @@ def _get_log_file_path(binary=None):
         binary = binary or _get_binary_name()
         return '%s.log' % (os.path.join(logdir, binary),)
 
-    return None
-
 
 class BaseLoggerAdapter(logging.LoggerAdapter):
 
@@ -256,8 +253,8 @@ class ContextAdapter(BaseLoggerAdapter):
         #                coerce to unicode before they can get
         #                to the python logging and possibly
         #                cause string encoding trouble
-        if not isinstance(msg, six.string_types):
-            msg = six.text_type(msg)
+        if not isinstance(msg, basestring):
+            msg = unicode(msg)
 
         if 'extra' not in kwargs:
             kwargs['extra'] = {}
