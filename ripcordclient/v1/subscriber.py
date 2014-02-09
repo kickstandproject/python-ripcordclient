@@ -17,16 +17,18 @@ from ripcordclient.common import base
 from ripcordclient.common import exception
 
 CREATE_ATTRIBUTES = [
-    'email_address',
+    'disabled',
     'domain',
+    'email_address',
     'password',
     'rpid',
     'username',
 ]
 
 UPDATE_ATTRIBUTES = [
-    'email_address',
+    'disabled',
     'domain',
+    'email_address',
     'password',
     'rpid',
     'username',

@@ -33,9 +33,12 @@ class CreateSubscriber(base.CreateCommand):
             'password', help='The password of the subscriber.')
         parser.add_argument(
             '--email', help='The email address of the subscriber.')
+        parser.add_argument(
+            '--disabled', type=bool, default=False, help='(Default: False)')
 
     def args2body(self, parsed_args):
         body = {
+            'disabled': parsed_args.disabled,
             'domain': parsed_args.domain,
             'password': parsed_args.password,
             'username': parsed_args.username,
@@ -85,6 +88,8 @@ class UpdateSubscriber(base.UpdateCommand):
 
     def add_known_arguments(self, parser):
         parser.add_argument(
+            '--disabled', type=bool, default=False, help='(Default: False)')
+        parser.add_argument(
             '--domain', help='The domain of the subscriber.')
         parser.add_argument(
             '--password', help='The password of the subscriber.')
@@ -92,7 +97,9 @@ class UpdateSubscriber(base.UpdateCommand):
             '--username', help='The name of the subscriber.')
 
     def args2body(self, parsed_args):
-        body = {}
+        body = {
+            'disabled': parsed_args.disabled,
+        }
         if parsed_args.domain:
             body['domain'] = parsed_args.domain
         if parsed_args.username:
