@@ -19,6 +19,7 @@
 # limitations under the License.
 
 from ripcordclient.common import http
+from ripcordclient.v1 import domain
 from ripcordclient.v1 import subscriber
 
 
@@ -26,4 +27,5 @@ class Client(http.HTTPClient):
 
     def __init__(self, *args, **kwargs):
         super(Client, self).__init__(*args, **kwargs)
+        self.domains = domain.DomainManager(self)
         self.subscribers = subscriber.SubscriberManager(self)

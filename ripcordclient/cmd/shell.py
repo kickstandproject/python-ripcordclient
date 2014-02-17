@@ -30,6 +30,7 @@ from ripcordclient import client
 from ripcordclient.common import exception
 from ripcordclient.common import utils
 from ripcordclient.openstack.common import log as logging
+from ripcordclient.shell.v1 import domain
 from ripcordclient.shell.v1 import subscriber
 from ripcordclient import version
 
@@ -37,6 +38,11 @@ from ripcordclient import version
 CONF = cfg.CONF
 
 COMMAND = {
+    'domain-create': domain.CreateDomain,
+    'domain-delete': domain.DeleteDomain,
+    'domain-list': domain.ListDomain,
+    'domain-show': domain.ShowDomain,
+    'domain-update': domain.UpdateDomain,
     'subscriber-create': subscriber.CreateSubscriber,
     'subscriber-delete': subscriber.DeleteSubscriber,
     'subscriber-list': subscriber.ListSubscriber,
