@@ -28,7 +28,7 @@ class CreateSubscriber(base.CreateCommand):
         parser.add_argument(
             'username', help='The username of the subscriber.')
         parser.add_argument(
-            'domain', help='The domain of the subscriber.')
+            'domain_id', help='The domain id of the subscriber.')
         parser.add_argument(
             'password', help='The password of the subscriber.')
         parser.add_argument(
@@ -39,7 +39,7 @@ class CreateSubscriber(base.CreateCommand):
     def args2body(self, parsed_args):
         body = {
             'disabled': parsed_args.disabled,
-            'domain': parsed_args.domain,
+            'domain_id': parsed_args.domain_id,
             'password': parsed_args.password,
             'username': parsed_args.username,
         }
@@ -61,7 +61,7 @@ class ListSubscriber(base.ListCommand):
     list_columns = [
         'uuid',
         'username',
-        'domain',
+        'domain_id',
         'email_address',
         'rpid',
         'user_id',
@@ -90,7 +90,7 @@ class UpdateSubscriber(base.UpdateCommand):
         parser.add_argument(
             '--disabled', type=bool, default=False, help='(Default: False)')
         parser.add_argument(
-            '--domain', help='The domain of the subscriber.')
+            '--domain_id', help='The domain id of the subscriber.')
         parser.add_argument(
             '--password', help='The password of the subscriber.')
         parser.add_argument(
@@ -100,8 +100,8 @@ class UpdateSubscriber(base.UpdateCommand):
         body = {
             'disabled': parsed_args.disabled,
         }
-        if parsed_args.domain:
-            body['domain'] = parsed_args.domain
+        if parsed_args.domain_id:
+            body['domain_id'] = parsed_args.domain_id
         if parsed_args.username:
             body['password'] = parsed_args.password
         if parsed_args.username:

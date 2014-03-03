@@ -18,7 +18,7 @@ from ripcordclient.common import exception
 
 CREATE_ATTRIBUTES = [
     'disabled',
-    'domain',
+    'domain_id',
     'email_address',
     'password',
     'rpid',
@@ -27,7 +27,7 @@ CREATE_ATTRIBUTES = [
 
 UPDATE_ATTRIBUTES = [
     'disabled',
-    'domain',
+    'domain_id',
     'email_address',
     'password',
     'rpid',
