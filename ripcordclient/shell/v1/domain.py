@@ -27,9 +27,12 @@ class CreateDomain(base.CreateCommand):
     def add_known_arguments(self, parser):
         parser.add_argument(
             'name', help='The name of the domain.')
+        parser.add_argument(
+            '--disabled', type=bool, default=False, help='(Default: False)')
 
     def args2body(self, parsed_args):
         body = {
+            'disabled': parsed_args.disabled,
             'name': parsed_args.name,
         }
 
@@ -49,6 +52,7 @@ class ListDomain(base.ListCommand):
     list_columns = [
         'uuid',
         'name',
+        'disabled',
         'user_id',
         'project_id',
         'created_at',
@@ -73,10 +77,14 @@ class UpdateDomain(base.UpdateCommand):
 
     def add_known_arguments(self, parser):
         parser.add_argument(
+            '--disabled', type=bool, default=False, help='(Default: False)')
+        parser.add_argument(
             '--name', help='The name of the domain.')
 
     def args2body(self, parsed_args):
-        body = {}
+        body = {
+            'disabled': parsed_args.disabled,
+        }
         if parsed_args.name:
             body['name'] = parsed_args.name
 

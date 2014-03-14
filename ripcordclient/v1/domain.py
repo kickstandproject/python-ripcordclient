@@ -17,6 +17,7 @@ from ripcordclient.common import base
 from ripcordclient.common import exception
 
 CREATE_ATTRIBUTES = [
+    'disabled',
     'name',
 ]
 
