@@ -64,6 +64,7 @@ class ListSubscriber(base.ListCommand):
         'domain_id',
         'email_address',
         'rpid',
+        'disabled',
         'user_id',
         'project_id',
         'created_at',
