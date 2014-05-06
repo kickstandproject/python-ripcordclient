@@ -17,6 +17,7 @@ from ripcordclient.common import base
 from ripcordclient.common import exception
 
 CREATE_ATTRIBUTES = [
+    'description',
     'disabled',
     'domain_id',
     'email_address',
@@ -25,14 +26,7 @@ CREATE_ATTRIBUTES = [
     'username',
 ]
 
-UPDATE_ATTRIBUTES = [
-    'disabled',
-    'domain_id',
-    'email_address',
-    'password',
-    'rpid',
-    'username',
-]
+UPDATE_ATTRIBUTES = CREATE_ATTRIBUTES
 
 
 class Subscriber(base.Resource):

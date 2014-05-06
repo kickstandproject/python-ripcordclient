@@ -34,6 +34,8 @@ class CreateSubscriber(base.CreateCommand):
         parser.add_argument(
             '--email', help='The email address of the subscriber.')
         parser.add_argument(
+            '--description', help='The description for the subscriber.')
+        parser.add_argument(
             '--disabled', type=bool, default=False, help='(Default: False)')
 
     def args2body(self, parsed_args):
@@ -45,6 +47,8 @@ class CreateSubscriber(base.CreateCommand):
         }
         if parsed_args.email:
             body['email_address'] = parsed_args.email
+        if parsed_args.description:
+            body['description'] = parsed_args.description
         return body
 
 
@@ -64,6 +68,7 @@ class ListSubscriber(base.ListCommand):
         'domain_id',
         'email_address',
         'rpid',
+        'description',
         'disabled',
         'user_id',
         'project_id',
@@ -89,6 +94,8 @@ class UpdateSubscriber(base.UpdateCommand):
 
     def add_known_arguments(self, parser):
         parser.add_argument(
+            '--description', help='The description for the subscriber.')
+        parser.add_argument(
             '--disabled', type=bool, default=False, help='(Default: False)')
         parser.add_argument(
             '--domain_id', help='The domain id of the subscriber.')
@@ -101,6 +108,8 @@ class UpdateSubscriber(base.UpdateCommand):
         body = {
             'disabled': parsed_args.disabled,
         }
+        if parsed_args.description:
+            body['description'] = parsed_args.description
         if parsed_args.domain_id:
             body['domain_id'] = parsed_args.domain_id
         if parsed_args.username:
